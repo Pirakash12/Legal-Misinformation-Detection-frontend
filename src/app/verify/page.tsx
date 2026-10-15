@@ -1,3 +1,188 @@
 "use client";
-import {useEffect,useState} from "react";import {useRouter,useSearchParams} from "next/navigation";import {motion,AnimatePresence} from "framer-motion";import {FileText,Image as ImageIcon,Upload,ArrowRight,ShieldCheck,Scale,Languages,Sparkles} from "lucide-react";
-export default function Verify(){const params=useSearchParams();const [mode,setMode]=useState<"text"|"image">("text");const [claim,setClaim]=useState("");const [file,setFile]=useState("");const router=useRouter();useEffect(()=>{if(params.get("mode")==="image")setMode("image")},[params]);const go=()=>{if(mode==="text"&&!claim.trim())return;if(mode==="image"&&!file)return;sessionStorage.setItem("claim",claim||"Claim extracted from uploaded image");router.push("/processing")};return <div className="legal-bg min-h-[calc(100vh-78px)]"><motion.div initial={{opacity:0,y:20}} animate={{opacity:1,y:0}} transition={{duration:.65}} className="mx-auto max-w-[1180px] px-5 py-14 lg:px-8"><div className="grid items-start gap-8 lg:grid-cols-[1fr_340px]"><div><div className="mb-8"><div className="inline-flex items-center gap-2 rounded-full border border-[#123a8f]/10 bg-white/70 px-4 py-2 text-[11px] font-semibold uppercase tracking-[.2em] text-[#123a8f] shadow-sm"><Sparkles size={13}/>Claim verification</div><h1 className="mt-5 text-4xl font-semibold tracking-[-.035em] text-[#0b1739] md:text-5xl">Verify a Legal Claim</h1><p className="mt-4 max-w-2xl text-sm leading-7 text-[#74809a]">Enter a legal claim or upload an image. Relevant Sri Lankan legal sources are retrieved and compared before the result is presented.</p></div><div className="glass overflow-hidden rounded-[28px] p-5 md:p-8"><div className="grid grid-cols-2 rounded-2xl bg-[#eef3ff]/80 p-1.5">{[["text",FileText,"Text Claim"],["image",ImageIcon,"Image Upload"]].map(([key,Icon,label])=><button key={String(key)} onClick={()=>setMode(key as "text"|"image")} className={`relative flex items-center justify-center gap-2 rounded-xl py-3 text-sm font-semibold transition ${mode===key?"text-[#123a8f]":"text-[#7a859d] hover:text-[#123a8f]"}`}>{mode===key&&<motion.span layoutId="verify-tab" className="absolute inset-0 rounded-xl bg-white shadow-sm"/>}<Icon size={17} className="relative"/><span className="relative">{label as string}</span></button>)}</div><AnimatePresence mode="wait">{mode==="text"?<motion.div key="text" initial={{opacity:0,x:-12}} animate={{opacity:1,x:0}} exit={{opacity:0,x:12}} className="mt-7"><label className="text-sm font-semibold text-[#172342]">What legal claim would you like to verify?</label><textarea value={claim} maxLength={2000} onChange={e=>setClaim(e.target.value)} placeholder="Example: An employer in Sri Lanka can terminate an employee without notice at any time." className="mt-3 min-h-52 w-full resize-none rounded-2xl border border-[#123a8f]/10 bg-white/75 p-5 text-sm leading-7 text-[#172342] shadow-inner outline-none transition placeholder:text-[#a5aec0] focus:border-[#123a8f]/35 focus:ring-4 focus:ring-[#123a8f]/6"/><div className="mt-3 flex justify-between text-xs text-[#8b96ac]"><span>English • සිංහල • தமிழ்</span><span>{claim.length}/2000</span></div></motion.div>:<motion.div key="image" initial={{opacity:0,x:12}} animate={{opacity:1,x:0}} exit={{opacity:0,x:-12}} className="mt-7"><label className="text-sm font-semibold text-[#172342]">Upload an image containing a legal claim</label><label className="group mt-3 flex min-h-64 cursor-pointer flex-col items-center justify-center rounded-2xl border border-dashed border-[#123a8f]/25 bg-gradient-to-br from-[#f8faff] to-white p-8 text-center transition hover:border-[#123a8f]/50 hover:shadow-[0_16px_45px_rgba(18,58,143,.08)]"><motion.span whileHover={{scale:1.08,y:-3}} className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#123a8f] text-white shadow-xl shadow-[#123a8f]/15"><Upload size={27}/></motion.span><p className="mt-5 font-semibold text-[#172342]">{file||"Drop an image here or click to browse"}</p><p className="mt-2 text-xs text-[#8b96ac]">JPEG or PNG · Maximum 5 MB</p><input type="file" accept="image/png,image/jpeg" className="hidden" onChange={e=>setFile(e.target.files?.[0]?.name||"")}/></label></motion.div>}</AnimatePresence><div className="mt-7 flex flex-col justify-between gap-4 border-t border-[#123a8f]/8 pt-6 sm:flex-row sm:items-center"><div className="flex items-center gap-2 text-xs leading-5 text-[#74809a]"><ShieldCheck size={18} className="shrink-0 text-[#123a8f]"/>Evidence-grounded result, not professional legal advice.</div><button onClick={go} className="royal-button flex items-center justify-center gap-2 rounded-xl px-7 py-3.5 text-sm font-semibold">Analyse Claim <ArrowRight size={17}/></button></div></div></div><div className="space-y-5 lg:pt-28"><motion.div animate={{y:[0,-7,0]}} transition={{duration:6,repeat:Infinity}} className="glass relative overflow-hidden rounded-[26px] p-7"><div className="absolute -right-12 -top-12 h-36 w-36 rounded-full bg-[#123a8f]/9 blur-2xl"/><Scale size={44} strokeWidth={1} className="relative text-[#123a8f]"/><h2 className="relative mt-8 text-xl font-semibold text-[#0b1739]">Evidence before assumptions.</h2><p className="relative mt-3 text-sm leading-6 text-[#74809a]">Results connect the submitted claim to relevant authoritative Sri Lankan legal material.</p></motion.div><div className="glass rounded-[26px] p-6"><Languages size={22} className="text-[#123a8f]"/><p className="mt-4 text-sm font-semibold text-[#172342]">Supported languages</p><p className="mt-2 text-xs leading-5 text-[#7a859d]">English, Sinhala and Tamil. Language is detected during processing.</p></div></div></div></motion.div></div>}
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  FileText,
+  Image as ImageIcon,
+  Upload,
+  ArrowRight,
+  ShieldCheck,
+  Scale,
+  Languages,
+  Sparkles,
+} from "lucide-react";
+export default function Verify() {
+  const params = useSearchParams();
+  const [mode, setMode] = useState<"text" | "image">("text");
+  const [claim, setClaim] = useState("");
+  const [file, setFile] = useState("");
+  const router = useRouter();
+  useEffect(() => {
+    if (params.get("mode") === "image") setMode("image");
+  }, [params]);
+  const go = () => {
+    if (mode === "text" && !claim.trim()) return;
+    if (mode === "image" && !file) return;
+    sessionStorage.setItem(
+      "claim",
+      claim || "Claim extracted from uploaded image",
+    );
+    router.push("/processing");
+  };
+  return (
+    <div className="legal-bg min-h-[calc(100vh-78px)]">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.65 }}
+        className="mx-auto max-w-[1180px] px-5 py-14 lg:px-8"
+      >
+        <div className="grid items-start gap-8 lg:grid-cols-[1fr_340px]">
+          <div>
+            <div className="mb-8">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#123a8f]/10 bg-white/70 px-4 py-2 text-[11px] font-semibold uppercase tracking-[.2em] text-[#123a8f] shadow-sm">
+                <Sparkles size={13} />
+                Claim verification
+              </div>
+              <h1 className="mt-5 text-4xl font-semibold tracking-[-.035em] text-[#0b1739] md:text-5xl">
+                Verify a Legal Claim
+              </h1>
+              <p className="mt-4 max-w-2xl text-sm leading-7 text-[#74809a]">
+                Enter a legal claim or upload an image. Relevant Sri Lankan
+                legal sources are retrieved and compared before the result is
+                presented.
+              </p>
+            </div>
+            <div className="glass overflow-hidden rounded-[28px] p-5 md:p-8">
+              <div className="grid grid-cols-2 rounded-2xl bg-[#eef3ff]/80 p-1.5">
+                {[
+                  ["text", FileText, "Text Claim"],
+                  ["image", ImageIcon, "Image Upload"],
+                ].map(([key, Icon, label]) => (
+                  <button
+                    key={String(key)}
+                    onClick={() => setMode(key as "text" | "image")}
+                    className={`relative flex items-center justify-center gap-2 rounded-xl py-3 text-sm font-semibold transition ${mode === key ? "text-[#123a8f]" : "text-[#7a859d] hover:text-[#123a8f]"}`}
+                  >
+                    {mode === key && (
+                      <motion.span
+                        layoutId="verify-tab"
+                        className="absolute inset-0 rounded-xl bg-white shadow-sm"
+                      />
+                    )}
+                    <Icon size={17} className="relative" />
+                    <span className="relative">{label as string}</span>
+                  </button>
+                ))}
+              </div>
+              <AnimatePresence mode="wait">
+                {mode === "text" ? (
+                  <motion.div
+                    key="text"
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 12 }}
+                    className="mt-7"
+                  >
+                    <label className="text-sm font-semibold text-[#172342]">
+                      What legal claim would you like to verify?
+                    </label>
+                    <textarea
+                      value={claim}
+                      maxLength={2000}
+                      onChange={(e) => setClaim(e.target.value)}
+                      placeholder="Example: An employer in Sri Lanka can terminate an employee without notice at any time."
+                      className="mt-3 min-h-52 w-full resize-none rounded-2xl border border-[#123a8f]/10 bg-white/75 p-5 text-sm leading-7 text-[#172342] shadow-inner outline-none transition placeholder:text-[#a5aec0] focus:border-[#123a8f]/35 focus:ring-4 focus:ring-[#123a8f]/6"
+                    />
+                    <div className="mt-3 flex justify-between text-xs text-[#8b96ac]">
+                      <span>English • සිංහල • தமிழ்</span>
+                      <span>{claim.length}/2000</span>
+                    </div>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="image"
+                    initial={{ opacity: 0, x: 12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -12 }}
+                    className="mt-7"
+                  >
+                    <label className="text-sm font-semibold text-[#172342]">
+                      Upload an image containing a legal claim
+                    </label>
+                    <label className="group mt-3 flex min-h-64 cursor-pointer flex-col items-center justify-center rounded-2xl border border-dashed border-[#123a8f]/25 bg-gradient-to-br from-[#f8faff] to-white p-8 text-center transition hover:border-[#123a8f]/50 hover:shadow-[0_16px_45px_rgba(18,58,143,.08)]">
+                      <motion.span
+                        whileHover={{ scale: 1.08, y: -3 }}
+                        className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#123a8f] text-white shadow-xl shadow-[#123a8f]/15"
+                      >
+                        <Upload size={27} />
+                      </motion.span>
+                      <p className="mt-5 font-semibold text-[#172342]">
+                        {file || "Drop an image here or click to browse"}
+                      </p>
+                      <p className="mt-2 text-xs text-[#8b96ac]">
+                        JPEG or PNG · Maximum 5 MB
+                      </p>
+                      <input
+                        type="file"
+                        accept="image/png,image/jpeg"
+                        className="hidden"
+                        onChange={(e) =>
+                          setFile(e.target.files?.[0]?.name || "")
+                        }
+                      />
+                    </label>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <div className="mt-7 flex flex-col justify-between gap-4 border-t border-[#123a8f]/8 pt-6 sm:flex-row sm:items-center">
+                <div className="flex items-center gap-2 text-xs leading-5 text-[#74809a]">
+                  <ShieldCheck size={18} className="shrink-0 text-[#123a8f]" />
+                  Evidence-grounded result, not professional legal advice.
+                </div>
+                <button
+                  onClick={go}
+                  className="royal-button flex items-center justify-center gap-2 rounded-xl px-7 py-3.5 text-sm font-semibold"
+                >
+                  Analyse Claim <ArrowRight size={17} />
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="space-y-5 lg:pt-28">
+            <motion.div
+              animate={{ y: [0, -7, 0] }}
+              transition={{ duration: 6, repeat: Infinity }}
+              className="glass relative overflow-hidden rounded-[26px] p-7"
+            >
+              <div className="absolute -right-12 -top-12 h-36 w-36 rounded-full bg-[#123a8f]/9 blur-2xl" />
+              <Scale
+                size={44}
+                strokeWidth={1}
+                className="relative text-[#123a8f]"
+              />
+              <h2 className="relative mt-8 text-xl font-semibold text-[#0b1739]">
+                Evidence before assumptions.
+              </h2>
+              <p className="relative mt-3 text-sm leading-6 text-[#74809a]">
+                Results connect the submitted claim to relevant authoritative
+                Sri Lankan legal material.
+              </p>
+            </motion.div>
+            <div className="glass rounded-[26px] p-6">
+              <Languages size={22} className="text-[#123a8f]" />
+              <p className="mt-4 text-sm font-semibold text-[#172342]">
+                Supported languages
+              </p>
+              <p className="mt-2 text-xs leading-5 text-[#7a859d]">
+                English, Sinhala and Tamil. Language is detected during
+                processing.
+              </p>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
