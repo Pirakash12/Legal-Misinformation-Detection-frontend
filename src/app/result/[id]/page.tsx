@@ -1,26 +1,32 @@
 "use client";
+
 import { motion } from "framer-motion";
 import {
-  X,
   BookOpen,
   ExternalLink,
-  ShieldAlert,
   Scale,
-  CheckCircle2,
+  ShieldAlert,
+  X,
 } from "lucide-react";
-const evidence = [
+
+const supportingEvidence = [
   {
     title: "Shop and Office Employees Act",
     section: "Relevant employment provisions",
-    text: "Employment conditions and termination obligations are governed by applicable statutory provisions and cannot be reduced to an unrestricted right to dismiss without process.",
+    description:
+      "Employment conditions and termination obligations are governed by applicable statutory provisions and cannot be reduced to an unrestricted right to dismiss without process.",
   },
   {
     title: "Termination of Employment of Workmen Act",
     section: "Termination protections",
-    text: "Termination can be subject to statutory protections, consent or approval requirements depending on the employment context.",
+    description:
+      "Termination can be subject to statutory protections, consent or approval requirements depending on the employment context.",
   },
 ];
-export default function Result() {
+
+export default function ResultPage() {
+  const confidencePercentage = 87;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -32,14 +38,13 @@ export default function Result() {
           <p className="text-sm font-bold uppercase tracking-[.2em] text-blue-600">
             Verification result
           </p>
-          <h1 className="mt-2 text-4xl font-bold">
-            Evidence-grounded analysis
-          </h1>
+          <h1 className="mt-2 text-4xl font-bold">Evidence-grounded analysis</h1>
         </div>
         <div className="rounded-xl border border-blue-100 bg-white px-4 py-2 text-sm text-slate-500">
           ID: CLM-2026-001
         </div>
       </div>
+
       <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
         <div className="space-y-6">
           <section className="card rounded-[28px] p-7">
@@ -52,76 +57,75 @@ export default function Result() {
                 <h2 className="text-3xl font-black text-red-600">FALSE</h2>
               </div>
             </div>
+
             <div className="mt-6 rounded-2xl bg-slate-50 p-5">
               <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
                 Claim analysed
               </p>
               <p className="mt-2 text-lg font-semibold">
-                “An employer in Sri Lanka can terminate an employee without
-                notice at any time.”
+                “An employer in Sri Lanka can terminate an employee without notice at any time.”
               </p>
             </div>
+
             <div className="mt-6">
               <h3 className="font-bold">Why this verdict?</h3>
               <p className="mt-2 leading-7 text-slate-600">
-                The claim is too broad and conflicts with legal protections
-                governing employment termination in Sri Lanka. Depending on the
-                employment category and circumstances, statutory procedures and
-                protections may apply. The final backend will generate this
-                explanation from retrieved evidence.
+                The claim is too broad and conflicts with legal protections governing employment termination in Sri Lanka. Depending on the employment category and circumstances, statutory procedures and protections may apply. The final backend will generate this explanation from retrieved evidence.
               </p>
             </div>
           </section>
+
           <section>
             <div className="mb-4 flex items-center gap-2">
               <BookOpen className="text-blue-600" />
               <h2 className="text-xl font-bold">Supporting Legal Evidence</h2>
             </div>
+
             <div className="space-y-4">
-              {evidence.map((e, i) => (
+              {supportingEvidence.map((evidenceItem, index) => (
                 <motion.div
-                  key={e.title}
+                  key={evidenceItem.title}
                   whileHover={{ y: -3 }}
                   className="card rounded-2xl p-6"
                 >
                   <div className="flex justify-between gap-4">
                     <div>
                       <p className="text-xs font-bold text-blue-600">
-                        EVIDENCE {String(i + 1).padStart(2, "0")}
+                        EVIDENCE {String(index + 1).padStart(2, "0")}
                       </p>
-                      <h3 className="mt-1 font-bold">{e.title}</h3>
-                      <p className="text-sm text-slate-400">{e.section}</p>
+                      <h3 className="mt-1 font-bold">{evidenceItem.title}</h3>
+                      <p className="text-sm text-slate-400">{evidenceItem.section}</p>
                     </div>
                     <ExternalLink size={18} className="text-slate-400" />
                   </div>
                   <p className="mt-4 border-l-2 border-blue-300 pl-4 text-sm leading-6 text-slate-600">
-                    {e.text}
+                    {evidenceItem.description}
                   </p>
                 </motion.div>
               ))}
             </div>
           </section>
         </div>
+
         <aside className="space-y-5">
           <div className="card rounded-[28px] p-7 text-center">
             <p className="text-sm font-bold text-slate-500">Confidence</p>
             <div
               className="relative mx-auto mt-5 flex h-44 w-44 items-center justify-center rounded-full"
               style={{
-                background: "conic-gradient(#1769ff 0 87%,#e7eefb 87% 100%)",
+                background: `conic-gradient(#1769ff 0 ${confidencePercentage}%, #e7eefb ${confidencePercentage}% 100%)`,
               }}
             >
               <div className="flex h-36 w-36 flex-col items-center justify-center rounded-full bg-white">
-                <span className="text-4xl font-black">87%</span>
-                <span className="mt-1 text-xs text-slate-400">
-                  model estimate
-                </span>
+                <span className="text-4xl font-black">{confidencePercentage}%</span>
+                <span className="mt-1 text-xs text-slate-400">model estimate</span>
               </div>
             </div>
             <p className="mt-5 text-xs leading-5 text-slate-400">
               Confidence reflects model estimation, not legal certainty.
             </p>
           </div>
+
           <div className="card rounded-2xl p-6">
             <div className="flex items-center gap-2 font-bold">
               <Scale size={19} className="text-blue-600" />
@@ -142,13 +146,13 @@ export default function Result() {
               </div>
             </div>
           </div>
+
           <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm leading-6 text-amber-900">
             <div className="mb-2 flex items-center gap-2 font-bold">
               <ShieldAlert size={18} />
               Important
             </div>
-            This research prototype provides informational verification and is
-            not a substitute for professional legal advice.
+            This research prototype provides informational verification and is not a substitute for professional legal advice.
           </div>
         </aside>
       </div>
