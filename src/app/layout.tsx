@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -21,10 +22,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.variable} legal-bg`}>
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
+        <LanguageProvider>
+          <Navbar />
+          <main className="min-h-screen">{children}</main>
+        </LanguageProvider>
       </body>
     </html>
   );
