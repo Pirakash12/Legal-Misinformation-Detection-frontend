@@ -1,85 +1,12 @@
 "use client";
-
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { ArrowRight, ArrowLeft, BriefcaseBusiness, House, ShoppingCart, Scale, ShieldCheck, FileText, History } from "lucide-react";
-
-const domains = [
-  { icon: BriefcaseBusiness, title: "Employment Law", text: "Workplace rights, termination, salaries and labour regulations." },
-  { icon: House, title: "Property & Rental Law", text: "Land, property ownership and rental agreements." },
-  { icon: ShoppingCart, title: "Consumer Rights", text: "Consumer protection, product safety and service complaints." },
-];
-
-export default function Home() {
-  return (
-    <main className="relative min-h-screen overflow-hidden bg-[#eef3fb] pt-[122px]">
-      {/* Blurred photographic backdrop */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-[-28px] bg-[url('/images/justice-background.jpg')] bg-cover bg-center opacity-[.58] blur-[10px] scale-105" />
-        <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/68 to-[#dce7fb]/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-white/15 via-transparent to-white/20" />
-      </div>
-
-      <section className="relative z-10 mx-auto grid min-h-[560px] max-w-[1540px] grid-cols-1 items-center gap-8 px-7 pb-5 pt-12 md:px-12 lg:grid-cols-[1.03fr_.97fr] lg:px-20">
-        <motion.div initial={{ opacity: 0, x: -38 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: .8, ease: "easeOut" }} className="relative z-20">
-          <div className="mb-7 flex items-center gap-3 text-[12px] font-medium uppercase tracking-[.30em] text-[#263a67]">
-            <span className="h-[3px] w-11 rounded-full bg-[#0b3da8]" /> TRUTH <span>•</span> JUSTICE <span>•</span> AWARENESS
-          </div>
-
-          <h1 className="max-w-[760px] text-[52px] font-semibold leading-[1.02] tracking-[-.05em] text-[#080f2c] md:text-[68px] xl:text-[78px]">
-            Legal Misinformation<br /><span className="text-[#0b3da8]">Detection System</span>
-          </h1>
-          <p className="mt-5 max-w-[590px] text-[22px] leading-[1.45] tracking-[-.02em] text-[#43516e] md:text-[25px]">
-            Verify Sri Lankan legal claims with<br className="hidden md:block" /> evidence, not assumptions.
-          </p>
-          <div className="mt-7 h-[3px] w-12 rounded-full bg-[#0b3da8]" />
-
-          <div className="mt-8 flex flex-wrap gap-5">
-            <Link href="/verify" className="flex min-w-[275px] items-center justify-center gap-5 rounded-[16px] bg-gradient-to-r from-[#0b3da8] to-[#0d49c7] px-8 py-[19px] text-[16px] font-medium text-white shadow-[0_16px_35px_rgba(11,61,168,.22)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_42px_rgba(11,61,168,.3)]">
-              Verify a Claim <ArrowRight size={21} />
-            </Link>
-            <Link href="/history" className="flex min-w-[250px] items-center justify-center gap-4 rounded-[16px] border border-white/75 bg-white/58 px-8 py-[19px] text-[16px] font-medium text-[#0b3da8] shadow-[0_12px_35px_rgba(28,55,105,.10)] backdrop-blur-2xl transition duration-300 hover:-translate-y-1 hover:bg-white/72">
-              <History size={21} /> View History
-            </Link>
-          </div>
-        </motion.div>
-
-        {/* Layered legal-tech image */}
-        <motion.div initial={{ opacity: 0, scale: .92, x: 45 }} animate={{ opacity: 1, scale: 1, x: 0 }} transition={{ duration: 1, delay: .12, ease: "easeOut" }} className="relative hidden h-[560px] lg:block">
-          <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }} className="absolute right-[1%] top-[4%] h-[500px] w-[82%] rounded-[48px] border border-white/50 bg-white/16 shadow-[0_28px_60px_rgba(15,55,125,.15)] backdrop-blur-sm" />
-          <div className="absolute right-[5%] top-[8%] h-[500px] w-[82%] rounded-[45px] border border-white/70 bg-white/24 shadow-[0_22px_55px_rgba(15,55,125,.13)] backdrop-blur-sm" />
-          <motion.div animate={{ y: [0, -12, 0] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} className="absolute right-[10%] top-[2%] h-[500px] w-[82%] overflow-hidden rounded-[44px] border-2 border-white/75 bg-white/35 p-[9px] shadow-[0_28px_70px_rgba(8,49,130,.22)] backdrop-blur-xl">
-            <img src="/images/legal-tech-scales.jpg" alt="Legal verification and scales of justice" className="h-full w-full rounded-[35px] object-cover object-center" />
-            <div className="absolute inset-[9px] rounded-[35px] bg-gradient-to-tr from-[#062b75]/12 via-transparent to-[#50cfff]/8" />
-          </motion.div>
-
-          <motion.div animate={{ y: [0, -12, 0], rotate: [0, -2, 0] }} transition={{ duration: 5.4, repeat: Infinity, ease: "easeInOut" }} className="absolute left-[2%] top-[14%] flex h-[102px] w-[102px] items-center justify-center rounded-[24px] border border-white/80 bg-white/65 text-[#0b3da8] shadow-[0_18px_42px_rgba(24,64,130,.16)] backdrop-blur-2xl"><Scale size={47} strokeWidth={1.5} /></motion.div>
-          <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 5.8, repeat: Infinity, ease: "easeInOut" }} className="absolute bottom-[4%] left-[0%] flex h-[102px] w-[102px] items-center justify-center rounded-[24px] border border-white/80 bg-white/65 text-[#0b3da8] shadow-[0_18px_42px_rgba(24,64,130,.16)] backdrop-blur-2xl"><ShieldCheck size={45} strokeWidth={1.5} /></motion.div>
-          <motion.div animate={{ x: [0, 8, 0], y: [0, -4, 0] }} transition={{ duration: 5.2, repeat: Infinity, ease: "easeInOut" }} className="absolute right-0 top-[49%] flex h-[102px] w-[102px] items-center justify-center rounded-[24px] border border-white/80 bg-white/65 text-[#0b3da8] shadow-[0_18px_42px_rgba(24,64,130,.16)] backdrop-blur-2xl"><FileText size={43} strokeWidth={1.5} /></motion.div>
-        </motion.div>
-      </section>
-
-      {/* Domain glass cards */}
-      <section className="relative z-20 mx-auto max-w-[1540px] px-5 pb-9 md:px-12">
-        <div className="grid gap-4 lg:grid-cols-3">
-          {domains.map(({ icon: Icon, title, text }, i) => (
-            <motion.div key={title} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .55 + i * .10 }} whileHover={{ y: -7 }} className="group relative min-h-[170px] overflow-hidden rounded-[26px] border border-white/70 bg-white/55 p-6 shadow-[0_18px_50px_rgba(27,57,111,.10)] backdrop-blur-2xl">
-              <div className="absolute inset-0 bg-gradient-to-r from-white/55 to-white/18" />
-              <div className="relative flex h-full items-start gap-4">
-                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[15px] border border-[#0b3da8]/10 bg-white/72 text-[#0b3da8] shadow-sm"><Icon size={27} /></span>
-                <div className="pr-12"><h2 className="text-[17px] font-semibold text-[#0b1535]">{title}</h2><p className="mt-2 max-w-[300px] text-[14px] leading-6 text-[#52617e]">{text}</p></div>
-                <span className="absolute bottom-0 right-0 flex h-13 w-13 items-center justify-center rounded-full bg-white/82 text-[#0b3da8] shadow-md transition group-hover:translate-x-1"><ArrowRight size={22} /></span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      <div className="relative z-20 mx-auto flex max-w-[1540px] items-center justify-end gap-4 px-12 pb-8 text-white">
-        <span className="mr-1 text-[12px] font-medium tracking-wide">01 / 03</span>
-        <button aria-label="Previous slide" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/25 backdrop-blur-xl"><ArrowLeft size={17} /></button>
-        <button aria-label="Next slide" className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0b3da8] shadow-lg"><ArrowRight size={17} /></button>
-      </div>
-    </main>
-  );
-}
+import Link from "next/link";import {motion} from "framer-motion";import {ArrowRight,BriefcaseBusiness,House,ShoppingCart,Scale,ShieldCheck,Languages,ScanText,History} from "lucide-react";
+const domains=[{I:BriefcaseBusiness,title:"Employment Law",text:"Workplace rights, termination, salaries and labour regulations."},{I:House,title:"Property & Rental Law",text:"Land, property ownership and rental agreements."},{I:ShoppingCart,title:"Consumer Rights",text:"Consumer protection, product safety and service complaints."}];
+export default function Home(){return <div className="relative min-h-screen overflow-hidden bg-[#f7f9fe]">
+ <div className="pointer-events-none fixed inset-0 z-0"><div className="absolute inset-0 bg-[url('/images/justice-background.jpg')] bg-cover bg-center opacity-[.20] blur-[7px] scale-110"/><div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-[#edf3ff]/75"/><div className="absolute -left-20 top-24 h-96 w-96 rounded-full bg-[#123a8f]/8 blur-[110px]"/><div className="absolute right-0 top-10 h-[520px] w-[520px] rounded-full bg-[#214da4]/10 blur-[130px]"/></div>
+ <section className="relative z-10 mx-auto max-w-[1500px] px-5 pb-8 pt-7 lg:px-10"><motion.div initial={{opacity:0,y:22}} animate={{opacity:1,y:0}} transition={{duration:.75}} className="glass relative min-h-[650px] overflow-hidden rounded-[34px]"><div className="absolute inset-0 bg-gradient-to-r from-white/82 via-white/64 to-white/28"/><div className="relative z-10 grid min-h-[650px] items-center gap-10 px-7 py-14 md:px-14 lg:grid-cols-[1.03fr_.97fr] lg:px-16 xl:px-20">
+  <div><motion.div initial={{opacity:0,x:-20}} animate={{opacity:1,x:0}} transition={{delay:.12}} className="mb-6 flex items-center gap-3 text-[11px] font-medium uppercase tracking-[.3em] text-[#314467]"><span className="h-[2px] w-11 bg-[#123a8f]"/>Truth <span>•</span> Justice <span>•</span> Awareness</motion.div><motion.h1 initial={{opacity:0,y:18}} animate={{opacity:1,y:0}} transition={{delay:.22,duration:.7}} className="max-w-[750px] text-5xl font-semibold leading-[1.03] tracking-[-.05em] text-[#081331] md:text-6xl xl:text-[72px]">Legal Misinformation<br/><span className="royal-text">Detection System</span></motion.h1><motion.p initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.4}} className="mt-7 max-w-[580px] text-xl leading-8 text-[#566581]">Verify Sri Lankan legal claims with evidence, not assumptions.</motion.p><motion.p initial={{opacity:0}} animate={{opacity:1}} transition={{delay:.46}} className="mt-2 max-w-[590px] text-sm leading-7 text-[#75829a]">Submit text or an image and receive a clear verdict supported by authoritative Sri Lankan legal sources.</motion.p><motion.div initial={{opacity:0,y:14}} animate={{opacity:1,y:0}} transition={{delay:.56}} className="mt-9 flex flex-wrap gap-4"><Link href="/verify" className="royal-button flex min-w-[190px] items-center justify-center gap-3 rounded-xl px-7 py-4 text-sm font-semibold">Verify a Claim <ArrowRight size={18}/></Link><Link href="/history" className="glass flex min-w-[170px] items-center justify-center gap-3 rounded-xl px-7 py-4 text-sm font-semibold text-[#123a8f] transition hover:-translate-y-1"><History size={18}/>View History</Link></motion.div></div>
+  <motion.div initial={{opacity:0,scale:.93,x:35}} animate={{opacity:1,scale:1,x:0}} transition={{duration:.9,delay:.18}} className="relative hidden h-[505px] lg:block"><div className="absolute left-[7%] top-[4%] h-[430px] w-[86%] rounded-[40px] bg-[#123a8f]/10 blur-[35px]"/><motion.div animate={{y:[0,-8,0]}} transition={{duration:6,repeat:Infinity,ease:"easeInOut"}} className="glass absolute left-[7%] top-[4%] h-[430px] w-[86%] overflow-hidden rounded-[36px] border-white/80 p-2"><img src="/images/legal-tech-scales.jpg" alt="Digital legal verification with scales of justice" className="h-full w-full rounded-[29px] object-cover object-center"/><div className="absolute inset-2 rounded-[29px] bg-gradient-to-t from-[#06153b]/20 via-transparent to-white/5"/></motion.div><motion.div animate={{y:[0,-10,0],rotate:[0,-2,0]}} transition={{duration:5,repeat:Infinity,ease:"easeInOut"}} className="glass absolute left-0 top-[17%] flex h-20 w-20 items-center justify-center rounded-2xl text-[#123a8f]"><Scale size={38}/></motion.div><motion.div animate={{y:[0,9,0]}} transition={{duration:5.5,repeat:Infinity,ease:"easeInOut"}} className="glass absolute bottom-[5%] left-[2%] flex h-20 w-20 items-center justify-center rounded-2xl text-[#123a8f]"><ShieldCheck size={34}/></motion.div><motion.div animate={{x:[0,7,0]}} transition={{duration:5,repeat:Infinity,ease:"easeInOut"}} className="glass absolute right-0 top-[49%] flex h-20 w-20 items-center justify-center rounded-2xl text-[#123a8f]"><ScanText size={33}/></motion.div></motion.div>
+ </div></motion.div></section>
+ <section className="relative z-10 mx-auto max-w-[1500px] px-5 pb-10 lg:px-10"><div className="grid gap-5 lg:grid-cols-3">{domains.map(({I,title,text},i)=><motion.div key={title} initial={{opacity:0,y:30}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:i*.1}} whileHover={{y:-8,scale:1.012}} className="glass group relative overflow-hidden rounded-[25px] p-6"><div className="absolute inset-0 bg-gradient-to-br from-white/55 to-white/10"/><div className="relative flex items-start gap-4"><span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/80 text-[#123a8f] shadow-sm ring-1 ring-[#123a8f]/10"><I size={22}/></span><div><h2 className="text-base font-semibold text-[#0b1739]">{title}</h2><p className="mt-2 text-sm leading-6 text-[#697792]">{text}</p></div><ArrowRight size={18} className="ml-auto mt-3 text-[#123a8f] transition group-hover:translate-x-1"/></div></motion.div>)}</div></section>
+ <section className="relative z-10 mx-auto max-w-[1500px] px-5 pb-24 pt-5 lg:px-10"><div className="grid gap-5 lg:grid-cols-[1.25fr_.75fr]"><motion.div initial={{opacity:0,y:24}} whileInView={{opacity:1,y:0}} viewport={{once:true}} className="glass rounded-[28px] p-8 md:p-10"><p className="text-xs font-semibold uppercase tracking-[.24em] text-[#123a8f]">System scope</p><h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#0b1739]">Clear, traceable verification.</h2><div className="mt-8 grid gap-4 md:grid-cols-3">{[[ShieldCheck,"Evidence grounded","Verdicts supported by retrieved legal evidence."],[Languages,"Three languages","English, Sinhala and Tamil claim input."],[ScanText,"Text + OCR","Verify typed claims or claims captured in images."]].map(([Icon,title,text])=><motion.div whileHover={{y:-5}} key={String(title)} className="rounded-2xl border border-white/80 bg-white/55 p-5 shadow-sm backdrop-blur-xl"><Icon className="text-[#123a8f]" size={21}/><h3 className="mt-5 text-sm font-semibold text-[#172342]">{title as string}</h3><p className="mt-2 text-xs leading-5 text-[#7a859d]">{text as string}</p></motion.div>)}</div></motion.div><motion.div initial={{opacity:0,x:20}} whileInView={{opacity:1,x:0}} viewport={{once:true}} whileHover={{y:-5}} className="glass relative min-h-[300px] overflow-hidden rounded-[28px] p-2"><img src="/images/justice-detail.jpg" alt="Scales of justice" className="h-full min-h-[284px] w-full rounded-[22px] object-cover object-center"/><div className="absolute inset-2 rounded-[22px] bg-gradient-to-t from-[#06153b]/35 via-transparent to-white/5"/><div className="absolute bottom-7 left-7 right-7 rounded-2xl border border-white/35 bg-white/15 p-4 text-white backdrop-blur-xl"><p className="text-sm font-semibold">Justice supported by verifiable evidence.</p></div></motion.div></div></section>
+ </div>}
