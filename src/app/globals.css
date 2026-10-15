@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+:root {
+  --black:#050505;
+  --black-soft:#0d0d0c;
+  --olive:#4d4a24;
+  --gold:#c89432;
+  --gold-light:#edc66d;
+  --ivory:#f9f8ee;
+  --muted:#c9c3b4;
+  --line:rgba(222,177,82,.22);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--black)}
+body{margin:0;color:var(--ivory);background:var(--black);font-family:var(--font-poppins),Arial,sans-serif;overflow-x:hidden}
+button,input,textarea,select{font:inherit}
+a{text-decoration:none;color:inherit}
+
+.legal-bg{background:
+ radial-gradient(circle at 82% 20%,rgba(200,148,50,.18),transparent 26%),
+ radial-gradient(circle at 8% 80%,rgba(77,74,36,.22),transparent 30%),
+ linear-gradient(135deg,#050505 0%,#0b0a08 50%,#12100b 100%)}
+.gold-text{background:linear-gradient(120deg,#fff2c6 0%,#c89432 46%,#f2d889 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.glass{background:linear-gradient(135deg,rgba(255,255,255,.095),rgba(255,255,255,.025));border:1px solid rgba(237,198,109,.22);box-shadow:0 24px 80px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.card{background:linear-gradient(145deg,rgba(30,28,22,.88),rgba(10,10,9,.76));border:1px solid rgba(200,148,50,.18);box-shadow:0 20px 55px rgba(0,0,0,.25);backdrop-filter:blur(14px)}
+.gold-border{border:1px solid rgba(200,148,50,.35)}
+.gold-button{background:linear-gradient(110deg,#8f6522,#d8a844 55%,#b67d25);box-shadow:0 10px 35px rgba(200,148,50,.22);color:#0b0905}
+.gold-button:hover{box-shadow:0 14px 45px rgba(200,148,50,.35);transform:translateY(-2px)}
+.noise{position:relative}.noise:after{content:"";pointer-events:none;position:absolute;inset:0;opacity:.045;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}
+.gold-line{height:1px;background:linear-gradient(90deg,transparent,#c89432,transparent)}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#050505}::-webkit-scrollbar-thumb{background:#6f5224;border-radius:20px}
